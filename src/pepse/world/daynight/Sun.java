@@ -10,7 +10,7 @@ import pepse.world.Terrain;
 
 import java.awt.*;
 
-public class Sun {
+    public class Sun {
     private static final int SIZE = 70;
     private static final Color BASIC_SUN_COLOR = Color.YELLOW;
 

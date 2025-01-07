@@ -9,6 +9,8 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Avatar extends GameObject {
     private ImageReader imageReader;
@@ -21,25 +23,24 @@ public class Avatar extends GameObject {
     private AnimationRenderable idleAnimation;
     private AnimationRenderable runAnimation;
     private AnimationRenderable jumpAnimation;
-
-    private enum State {
-        IDLE,
-        RUN,
-        JUMP}
     private State state;
     private UserInputListener inputListener;
     private static final float MOVEMENT_SPEED = 200;
-    private static final float VELOCITY_X = 400;
-    private static final float VELOCITY_Y = -650;
-    private static final float GRAVITY = 600;
+    private static final float VELOCITY_X = 200;
+    private static final float VELOCITY_Y = -300;
+    private static final float GRAVITY = 200;
     private float energyCounter;
+    private List<Cloud> observerClouds;
     ;
 
     public Avatar(Vector2 topLeftCorner,
                   UserInputListener inputListener,
                   ImageReader imageReader) {
 
-        super(topLeftCorner, Vector2.ONES.mult(50), imageReader.readImage("assets/idle_0.png",
+        super(new Vector2(topLeftCorner.x(), topLeftCorner.y()-50) , Vector2.ONES.mult(50),
+            imageReader.readImage(
+                "assets" +
+                        "/idle_0.png",
                 true));
         this.imageReader = imageReader;
         initializeAnimations();
@@ -48,6 +49,18 @@ public class Avatar extends GameObject {
         this.inputListener = inputListener;
         this.energyCounter = 100;
         transform().setAccelerationY(GRAVITY);
+        physics().preventIntersectionsFromDirection(Vector2.ZERO);
+        setTag("avatar");
+        observerClouds = new ArrayList<>();
+
+    }
+    public void registerCloudObserver(Cloud cloud){
+        observerClouds.add(cloud);
+    }
+    private void notifyAllClouds(){
+        for (Cloud cloud: observerClouds){
+            cloud.updateAvatarJump();
+        }
     }
 
     private void initializeAnimations() {
@@ -63,6 +76,10 @@ public class Avatar extends GameObject {
         }
         return new AnimationRenderable(renderables, 0.2);
     }
+    public State getState(){
+        return state;
+    }
+
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -82,11 +99,11 @@ public class Avatar extends GameObject {
         if (inputListener.isKeyPressed(KeyEvent.VK_SPACE) && getVelocity().y() == 0 && energyCounter >= 10) {
             energyCounter -= 10;
             this.state = State.JUMP;
+            notifyAllClouds();
             transform().setVelocityY(VELOCITY_Y);
-            transform().setAccelerationY(GRAVITY);
         }
         if (getVelocity().equals(Vector2.ZERO) && energyCounter < 100){
-            energyCounter += 1;
+            addEnergy(1);
             this.state = State.IDLE;
         }
         resolveRenderable();
@@ -119,8 +136,11 @@ public class Avatar extends GameObject {
         super.onCollisionEnter(other, collision);
         if(other.getTag().equals("ground")){
             this.transform().setVelocityY(0);
-            this.transform().setAccelerationY(0);
         }
+        if (other.getTag() == "fruit"){
+            addEnergy(10);
+        }
+//
     }
 }
 
