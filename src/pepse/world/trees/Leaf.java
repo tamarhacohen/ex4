@@ -28,11 +28,14 @@ public class Leaf extends GameObject {
         super(topLeftCorner, dimensions, renderable);
     }
 
+    /**
+     * callback of transition that sets the angle and size transition
+     */
     void setTransition(){
         setAngleTransition();
         setSizeTransition();
     }
-    void setAngleTransition(){
+    private void setAngleTransition(){
         new Transition<Float>(this,
                 (Float angle) -> this.renderer().setRenderableAngle(angle),
                 -15f,
@@ -43,7 +46,7 @@ public class Leaf extends GameObject {
                 null);
     }
 
-    void setSizeTransition(){
+    private void setSizeTransition(){
         new Transition<Float>(this,
                 (Float size) -> this.setDimensions(Vector2.ONES.mult(size)),
                 leafSize,

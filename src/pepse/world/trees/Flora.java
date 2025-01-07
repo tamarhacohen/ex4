@@ -11,18 +11,30 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.function.Function;
 
+/**
+ * responsible for creating trees
+ */
 public class Flora {
-
     private static Random locationRandom;
     private static int minTreeHeight = 80;
     private static int maxTreeHeight = 150;
     private static int treeWidth = 50;
     private Function<Float, Float> floraGroundHeight;
 
+    /**
+     * Constructor for flora class
+     * @param floraGroundHeight
+     */
     public Flora(Function<Float, Float> floraGroundHeight){
         this.floraGroundHeight = floraGroundHeight;
     }
 
+    /**
+     * creates trees in specified range
+     * @param minX minimum x for trees
+     * @param maxX max x for trees
+     * @return a list of trees
+     */
     public List<Tree> createInRange(int minX, int maxX){
         float minTreeX = (float) Math.floor(minX/Block.getSize()) * Block.getSize();
         int treeNum = Math.ceilDiv((maxX - minX), Block.getSize());

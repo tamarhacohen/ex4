@@ -4,16 +4,9 @@ import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.components.CoordinateSpace;
 import danogl.components.ScheduledTask;
-import danogl.components.Transition;
-import danogl.gui.ImageReader;
-import danogl.gui.rendering.ImageRenderable;
-import danogl.gui.rendering.OvalRenderable;
-import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 import pepse.PepseGameManager;
-import pepse.util.ColorSupplier;
-import pepse.world.trees.Drop;
 
 import java.awt.*;
 import java.util.ArrayList;

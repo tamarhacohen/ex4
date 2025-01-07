@@ -1,17 +1,13 @@
-package pepse.world.trees;
+package pepse.world;
 
 import danogl.GameObject;
 import danogl.components.CoordinateSpace;
 import danogl.components.Transition;
-import danogl.gui.ImageReader;
 import danogl.gui.rendering.OvalRenderable;
-import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
-import pepse.util.ColorSupplier;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * this class is responsible to create drops game objects in the game

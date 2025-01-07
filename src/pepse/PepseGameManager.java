@@ -16,16 +16,17 @@ import pepse.world.*;
 import pepse.world.daynight.Night;
 import pepse.world.daynight.Sun;
 import pepse.world.daynight.SunHalo;
-import pepse.world.trees.Drop;
 import pepse.world.trees.Flora;
 import pepse.world.trees.Fruit;
 import pepse.world.trees.Tree;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
+/**
+ * responsible for managing a pepse game
+ */
 public class PepseGameManager  extends GameManager {
     private static final int CLOUD_SIZE = 80;
     private static final int BRICK_BUFFER = 10;
@@ -40,17 +41,31 @@ public class PepseGameManager  extends GameManager {
     private int leafLayer = Layer.DEFAULT + 1;
     private GameObject cloud;
     private Random random = new Random();
-    Terrain terrain;
+    private Terrain terrain;
     private float xRight;
     private float xLeft;
-    private int tempCounter = 0;
     private Flora flora;
 
-
+    /**
+     * runs a game of pepse
+     * @param args game arguments
+     */
     public static void main(String[] args) {
         new PepseGameManager().run();
     }
 
+    /**
+     * initializes game
+     * @param imageReader Contains a single method: readImage, which reads an image from disk.
+     *                 See its documentation for help.
+     * @param soundReader Contains a single method: readSound, which reads a wav file from
+     *                    disk. See its documentation for help.
+     * @param inputListener Contains a single method: isKeyPressed, which returns whether
+     *                      a given key is currently pressed by the user or not. See its
+     *                      documentation.
+     * @param windowController Contains an array of helpful, self explanatory methods
+     *                         concerning the window.
+     */
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
@@ -119,14 +134,33 @@ public class PepseGameManager  extends GameManager {
         }
     }
 
+    /**
+     * removes a game object from the game
+     * @param gameObject object to remove
+     * @param layer layer to remove from
+     */
     public void removeGameObject(GameObject gameObject, int layer){
         gameObjects().removeGameObject(gameObject, layer);
     }
 
+    /**
+     * adds a game object to the game
+     * @param gameObject object to add
+     * @param layer layer to add to
+     */
     public void addGameObject(GameObject gameObject, int layer){
         gameObjects().addGameObject(gameObject, layer);
     }
 
+    /**
+     * updates the game's frame
+     * @param deltaTime The time, in seconds, that passed since the last invocation
+     *                  of this method (i.e., since the last frame). This is useful
+     *                  for either accumulating the total time that passed since some
+     *                  event, or for physics integration (i.e., multiply this by
+     *                  the acceleration to get an estimate of the added velocity or
+     *                  by the velocity to get an estimate of the difference in position).
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -135,7 +169,6 @@ public class PepseGameManager  extends GameManager {
         float curLeft = avatar.getCenter().x() - windowDimensions.x()/2;
         if (curLeft<xLeft)
         {
-            tempCounter ++ ;
             HashMap<Integer, List<Block>> blockMap = terrain.createInRange((int)curLeft-15, (int)xLeft);
             for (HashMap.Entry<Integer,List<Block>> entry : blockMap.entrySet()){
                 for (Block block:entry.getValue()){
