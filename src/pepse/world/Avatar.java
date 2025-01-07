@@ -12,6 +12,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Avatar class - this class extends GameObject and describes the avatar in the game.
+ */
 public class Avatar extends GameObject {
     private ImageReader imageReader;
     private static final String[] IDLE_IMAGES = {"assets/idle_0.png", "assets/idle_1.png", "assets/idle_2.png", "assets" +
@@ -33,7 +36,13 @@ public class Avatar extends GameObject {
     private List<Cloud> observerClouds;
     ;
 
-    public Avatar(Vector2 topLeftCorner,
+/**
+ * Constructor for Avatar
+ * @param topLeftCorner - location of the avatar
+ * @param inputListener - input listener for the avatar
+ * @param imageReader - image reader for avatar's photo
+ */
+public Avatar(Vector2 topLeftCorner,
                   UserInputListener inputListener,
                   ImageReader imageReader) {
 
@@ -54,6 +63,11 @@ public class Avatar extends GameObject {
         observerClouds = new ArrayList<>();
 
     }
+
+    /**
+     * registerCloudObserver method - registers a cloud as an observer of the avatar for rain dropping
+     * @param cloud - observer to register
+     */
     public void registerCloudObserver(Cloud cloud){
         observerClouds.add(cloud);
     }
@@ -76,10 +90,18 @@ public class Avatar extends GameObject {
         }
         return new AnimationRenderable(renderables, 0.2);
     }
+    
+    /**
+     * State enum - this enum describes the state of the avatar
+     */
     public State getState(){
         return state;
     }
 
+    /**
+     * update the avatar based on the user's input
+     * @param deltaTime
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -122,15 +144,28 @@ public class Avatar extends GameObject {
         renderer().setIsFlippedHorizontally(velocity.x() < 0);
     }
 
+    /**
+     * getEnergy method - returns the energy of the avatar
+     * @return energy of the avatar
+     */
     public float getEnergy() {
         return energyCounter;
     }
 
+    /**
+     * addEnergy method - adds energy to the avatar
+     * @param energy - energy to add
+     */
     public void addEnergy(float energy) {
         energyCounter = Math.min(100, energyCounter+energy);
     }
 
 
+    /**
+     * override on collision enter to collide only with wanted objects
+     * @param other - object colided with
+     * @param collision - collision
+     */
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);

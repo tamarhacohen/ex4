@@ -21,7 +21,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * the cloud object of the game
+ */
 public class Cloud extends GameObject {
     private static final Color BASE_CLOUD_COLOR = new Color(255, 255, 255);
     private static final int CLOUD_SPEED = 50;
@@ -47,6 +49,9 @@ public class Cloud extends GameObject {
         this.drops = new ArrayList<>();
     }
 
+    /**
+     * update function of the observer when the avatar jumps
+     */
     public void updateAvatarJump() {
         int dropNumber = random.nextInt(2, 6);
         for (int i = 0; i < dropNumber; i++) {
@@ -63,6 +68,10 @@ public class Cloud extends GameObject {
         drops.add(drop);
     }
 
+    /**
+     * override the game object for cloud update, removes drops when needed
+     * @param deltaTime
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);

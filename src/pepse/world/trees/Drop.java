@@ -13,11 +13,19 @@ import pepse.util.ColorSupplier;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * this class is responsible to create drops game objects in the game
+ */
 public class Drop {
     private static final Color DROP_COLOR = new Color(48, 109, 199);
     private static final int DROP_SIZE = 10;
     private static final float GRAVITY = 200;
 
+    /**
+     * This function gets a cloud location and returns a drop game object
+     * @param cloudLocation - location of the clouds the drop comes from
+     * @return drop game object
+     */
     public static GameObject create(Vector2 cloudLocation) {
         Renderable dropShape = new OvalRenderable(DROP_COLOR);
 

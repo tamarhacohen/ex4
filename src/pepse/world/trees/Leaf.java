@@ -7,6 +7,9 @@ import danogl.util.Vector2;
 
 import java.awt.*;
 
+/**
+ * this class represents a Leaf game object, extends GameObject
+ */
 public class Leaf extends GameObject {
     private static final float leafSize = 20;
     private static final Color leafColor = new Color(50, 200, 30);
@@ -51,10 +54,18 @@ public class Leaf extends GameObject {
                 null);
     }
 
+    /**
+     * getter for size of the leaf
+     * @return size of the leaf
+     */
     public static float getLeafSize() {
-        return leafSize;
-    }
+            return leafSize;
+        }
 
+    /**
+     * getter for color of the leaf
+     * @return color of the leaf
+     */
     public static Color getLeafColor() {
         return leafColor;
     }
