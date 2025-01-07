@@ -10,10 +10,19 @@ import pepse.world.Terrain;
 
 import java.awt.*;
 
+    /**
+     * Sun class - this class creates game object night.
+     */
     public class Sun {
     private static final int SIZE = 70;
     private static final Color BASIC_SUN_COLOR = Color.YELLOW;
-
+    
+    /**
+     * create a game object for the Sun object
+     * @param windowDimensions - dims of the game window
+     * @param cycleLength - length of the cycle of a day
+     * @return Sun game object
+     */
     public static GameObject create(Vector2 windowDimensions, float cycleLength){
         GameObject sun = new GameObject(windowDimensions.mult(0.5f), Vector2.ONES.mult(SIZE),
                 new OvalRenderable(BASIC_SUN_COLOR));

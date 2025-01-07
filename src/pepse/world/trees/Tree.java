@@ -14,13 +14,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * this class is responsible of creating a tree object in the game
+ */
 public class Tree{
     private GameObject stem;
     private List<GameObject> leaves;
     private List<Fruit> fruits;
     private static final Color treeColor = new Color(100, 50, 20);
     private Random random;
-    public Tree(Vector2 topLeftCorner, Vector2 dimensions) {
+
+/**
+ * constructor for the tree object
+ * @param topLeftCorner - location of the tree
+ * @param dimensions - size of the tree
+ */
+public Tree(Vector2 topLeftCorner, Vector2 dimensions) {
         stem = new GameObject(topLeftCorner, dimensions,  new RectangleRenderable(treeColor));
         stem.setTag("stem");
         stem.physics().preventIntersectionsFromDirection(Vector2.ZERO);
@@ -55,14 +64,26 @@ public class Tree{
         }
     }
 
+    /**
+     * get the stem of the tree
+     * @return - game object of the stem
+     */
     public GameObject getStem() {
         return stem;
     }
 
+    /**
+     * get a list of leaves game objects
+     * @return - list of leaf game objects
+     */
     public List<GameObject> getLeaves(){
         return leaves;
     }
 
+    /**
+     * get a list of fruits game objects
+     * @return - list of fruit game objects
+     */
     public List<Fruit> getFruits() {
         return fruits;
     }

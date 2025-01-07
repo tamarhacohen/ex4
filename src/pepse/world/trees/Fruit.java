@@ -10,6 +10,9 @@ import pepse.PepseGameManager;
 
 import java.awt.*;
 
+/**
+ * this class represents a fruit game object, extends GameObject
+ */
 public class Fruit extends GameObject {
     private static final int fruitSize = 15;
     private static final Color fruitColor = new Color(200, 30, 78);
@@ -29,20 +32,38 @@ public class Fruit extends GameObject {
         setTag("fruit");
     }
 
+    /**
+     *
+     * @return the size of the fruit
+     */
     public static int getFruitSize() {
-        return fruitSize;
+            return fruitSize;
     }
 
+    /**
+     *
+     * @return the color of the fruit
+     */
     public static Color getFruitColor() {
         return fruitColor;
     }
 
+    /**
+     * sets the pepse game manager field
+     * @param pepseGameManager
+     */
     public void setPepseGameManager(PepseGameManager pepseGameManager) {
         this.pepseGameManager = pepseGameManager;
     }
     private void AppearFruit(){
         pepseGameManager.addGameObject(this, Layer.DEFAULT);
     }
+
+    /**
+     * override the on collision enter function to collide with avatar only
+     * @param other - object collided with
+     * @param collision - the collision itself
+     */
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
