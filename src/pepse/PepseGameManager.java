@@ -132,7 +132,7 @@ public class PepseGameManager  extends GameManager {
         super.update(deltaTime);
         energyRenderer.setString(String.format("%d%%",(int)avatar.getEnergy())); // TODO change to
         // callback? (6.4)
-            float curLeft = avatar.getCenter().x() - windowDimensions.x()/2;
+        float curLeft = avatar.getCenter().x() - windowDimensions.x()/2;
         if (curLeft<xLeft)
         {
             tempCounter ++ ;

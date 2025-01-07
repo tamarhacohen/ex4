@@ -24,12 +24,17 @@ public class Flora {
     }
 
     public List<Tree> createInRange(int minX, int maxX){
+        float minTreeX = (float) Math.floor(minX/Block.getSize()) * Block.getSize();
+        int treeNum = Math.ceilDiv((maxX - minX), Block.getSize());
+        float curX = minTreeX - Block.getSize();
+
         List<Tree> trees = new ArrayList<>();
-        for (int x = minX; x < maxX; x+= Block.getSize()) {
-            locationRandom = new Random(Objects.hash(x, 0));
-            if (locationRandom.nextFloat(0,1)<0.1){
+        for (int i = 0; i < treeNum; i++) {
+            curX = curX + Block.getSize();
+            locationRandom = new Random(Objects.hash(curX, 0));
+            if (locationRandom.nextInt(0,10)<1){
                 int treeHeight = locationRandom.nextInt(minTreeHeight, maxTreeHeight);
-                Vector2 treeLocation = new Vector2(x, floraGroundHeight.apply((float)x)-treeHeight);
+                Vector2 treeLocation = new Vector2(curX, floraGroundHeight.apply((float)curX)-treeHeight);
                 trees.add(new Tree(treeLocation, new Vector2(treeWidth, treeHeight)));
             }
 
